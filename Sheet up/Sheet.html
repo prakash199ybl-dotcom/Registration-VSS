@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Int0 Sheet Form</title>
+    <style>
+      :root {
+        --bg: #0f1724;
+        --card: #0b1220;
+        --muted: #94a3b8;
+        --accent: #06b6d4;
+        --accent-2: #7c3aed;
+        --glass: rgba(255, 255, 255, 0.04);
+        --radius: 12px;
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 28px;
+        background: linear-gradient(180deg, #071024 0%, #07162c 55%);
+        color: #e6eef8;
+      }
+
+      .wrapper {
+        width: 100%;
+        max-width: 920px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border-radius: 18px;
+        padding: 22px;
+        box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 18px;
+      }
+
+      @media (max-width: 900px) {
+        .wrapper {
+          grid-template-columns: 1fr;
+          padding: 18px;
+        }
+      }
+
+      header.form-head {
+        grid-column: 1/-1;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 2px;
+      }
+
+      header.form-head h1 {
+        margin: 0;
+        font-size: 20px;
+        letter-spacing: -0.2px;
+      }
+
+      header.form-head p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      form {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.015),
+          transparent
+        );
+        padding: 18px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      label {
+        font-size: 13px;
+        color: #dbeafe;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="date"],
+      textarea,
+      select,
+      input[type="file"] {
+        background: var(--glass);
+        color: #e6eef8;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        padding: 10px 12px;
+        border-radius: 10px;
+        font-size: 14px;
+        outline: none;
+      }
+
+      textarea {
+        min-height: 110px;
+        resize: vertical;
+        padding-top: 12px;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        box-shadow: 0 6px 18px rgba(12, 52, 80, 0.18);
+        border-color: rgba(6, 182, 212, 0.9);
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .btn-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 6px;
+        align-items: center;
+      }
+
+      button.primary {
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        color: #042027;
+        border: none;
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(7, 70, 84, 0.18);
+      }
+
+      button.ghost {
+        background: transparent;
+        color: var(--muted);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        padding: 10px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      /* right column - preview / instructions */
+      .side {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border-radius: 12px;
+        padding: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .preview {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          transparent
+        );
+        border-radius: 10px;
+        padding: 12px;
+        flex: 1;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .success {
+        display: none;
+        padding: 12px;
+        border-radius: 10px;
+        background: linear-gradient(
+          90deg,
+          rgba(6, 182, 212, 0.12),
+          rgba(124, 58, 237, 0.08)
+        );
+        color: #dffcff;
+        font-weight: 600;
+      }
+
+      .error {
+        color: #ffb4b4;
+        font-size: 13px;
+        margin-top: 6px;
+      }
+
+      small.helper {
+        color: var(--muted);
+        display: block;
+        margin-top: 6px;
+        font-size: 12px;
+      }
+
+      /* subtle input icon */
+      .flex-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .muted-pill {
+        font-size: 12px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.02);
+        padding: 6px 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.02);
+      }
+
+      footer.foot {
+        grid-column: 1/-1;
+        text-align: center;
+        color: var(--muted);
+        font-size: 12px;
+        margin-top: 6px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="wrapper" role="main">
+      <header class="form-head" aria-hidden="false">
+        <div class="flex-row" style="gap: 14px; align-items: flex-start">
+          <svg
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <rect width="24" height="24" rx="6" fill="#061226"></rect>
+            <path
+              d="M8 12h8M8 8h8M8 16h6"
+              stroke="#06b6d4"
+              stroke-width="1.2"
+              stroke-linecap="round"
+            />
+          </svg>
+          <div>
+            <h1>Int0 Sheet Form</h1>
+            <p>
+              Fill the details below — this is a reusable info-sheet template.
+              Accessible & responsive.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <form id="int0-sheet-form" autocomplete="on" novalidate>
+        <div class="grid-2">
+          <div class="field">
+            <label for="fullname"
+              >Full name
+              <span aria-hidden="true" style="color: #9be7ff">•</span></label
+            >
+            <input
+              id="fullname"
+              name="fullname"
+              type="text"
+              placeholder="Ex: Prakash Tiwari"
+              required
+              minlength="2"
+            />
+            <small class="helper">Your complete name (first + last).</small>
+          </div>
+
+          <div class="field">
+            <label for="role">Role / Title</label>
+            <input
+              id="role"
+              name="role"
+              type="text"
+              placeholder="Ex: Developer Engineer"
+            />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="name@example.com"
+              required
+            />
+            <small class="helper"
+              >We will only use this for necessary communication.</small
+            >
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              placeholder="+91 98765 43210"
+              pattern="^\+?[0-9\s\-]{7,20}$"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="org">Organization / Company</label>
+          <input
+            id="org"
+            name="organization"
+            type="text"
+            placeholder="Company name or 'Independent'"
+          />
+        </div>
+
+        <div class="field">
+          <label for="address">Address</label>
+          <textarea
+            id="address"
+            name="address"
+            placeholder="Street, City, State, PIN / ZIP"
+          ></textarea>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="date">Date</label>
+            <input id="date" name="date" type="date" />
+          </div>
+
+          <div class="field">
+            <label for="category">Category</label>
+            <select id="category" name="category">
+              <option value="">— Select —</option>
+              <option>Frontend</option>
+              <option>Backend</option>
+              <option>Full Stack</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="notes">Notes / Short bio</label>
+          <textarea
+            id="notes"
+            name="notes"
+            placeholder="A short description or comments (optional)"
+          ></textarea>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="attachment">Attachment (optional)</label>
+            <input
+              id="attachment"
+              name="attachment"
+              type="file"
+              accept=".pdf,.doc,.docx,image/*"
+            />
+            <small class="helper"
+              >PDF, DOC or image. Max size: enforce server-side.</small
+            >
+          </div>
+
+          <div class="field">
+            <label for="public">Visibility</label>
+            <select id="public" name="public">
+              <option value="private">Private</option>
+              <option value="team">Team</option>
+              <option value="public">Public</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="submit" class="primary" aria-live="polite">
+            Save Int0 Sheet
+          </button>
+          <button type="reset" class="ghost">Reset</button>
+          <div
+            id="form-error"
+            class="error"
+            role="alert"
+            aria-live="assertive"
+          ></div>
+        </div>
+      </form>
+
+      <aside class="side" aria-label="preview and tips">
+        <div class="success" id="success-card" role="status" aria-live="polite">
+          ✅ Saved locally (not sent). Replace this with your API call.
+        </div>
+
+        <div class="preview" id="live-preview">
+          <strong style="color: #e6eef8">Live preview</strong>
+          <p style="margin-top: 8px; color: var(--muted); font-size: 13px">
+            Enter values in the left form. After submission you'll see a JSON
+            snapshot here and a success message.
+          </p>
+          <pre
+            id="json-output"
+            style="
+              white-space: pre-wrap;
+              font-size: 13px;
+              margin-top: 10px;
+              color: var(--muted);
+            "
+          ></pre>
+        </div>
+
+        <div
+          style="
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <div class="muted-pill">Template v1</div>
+          <div style="font-size: 12px; color: var(--muted)">
+            Accessible · Responsive
+          </div>
+        </div>
+      </aside>
+
+      <footer class="foot">
+        Need this integrated with a backend? Tell me which endpoint and auth
+        method and I'll add JS for posting.
+      </footer>
+    </main>
+
+    <script>
+      (function () {
+        const form = document.getElementById("int0-sheet-form");
+        const out = document.getElementById("json-output");
+        const success = document.getElementById("success-card");
+        const errEl = document.getElementById("form-error");
+
+        function showError(msg) {
+          errEl.textContent = msg;
+          setTimeout(() => (errEl.textContent = ""), 4000);
+        }
+
+        function collectFormData(formEl) {
+          const fd = new FormData(formEl);
+          const obj = {};
+          for (const [k, v] of fd.entries()) {
+            // handle file (only name shown) and empty strings
+            if (v instanceof File) {
+              obj[k] = v.name || null;
+            } else {
+              obj[k] = v === "" ? null : v;
+            }
+          }
+          return obj;
+        }
+
+        // Preview update on input
+        form.addEventListener("input", () => {
+          const data = collectFormData(form);
+          out.textContent = JSON.stringify(data, null, 2);
+        });
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          // browser validity check
+          if (!form.checkValidity()) {
+            // find first invalid
+            const invalid = form.querySelector(":invalid");
+            invalid?.focus();
+            showError("Please complete the required fields correctly.");
+            return;
+          }
+
+          // collect and show
+          const data = collectFormData(form);
+          out.textContent = JSON.stringify(data, null, 2);
+          success.style.display = "block";
+
+          // temporary flash + simulate saved state
+          setTimeout(() => (success.style.display = "none"), 5000);
+
+          // TODO: Replace this with an actual POST/fetch to your server
+          // Example:
+          // fetch('/api/int0', {method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(data)})
+          //   .then(...).catch(...)
+
+          // For demo, also reset form's default state? (optional)
+          // form.reset();
+        });
+
+        // populate preview initially
+        out.textContent = JSON.stringify(collectFormData(form), null, 2);
+      })();
+    </script>
+  </body>
+</html>
