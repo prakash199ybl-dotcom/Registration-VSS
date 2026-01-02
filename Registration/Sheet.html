@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Int0 Sheet Form</title>
+    <title>Registration VSS</title>
     <style>
       :root {
         --bg: #0f1724;
@@ -242,6 +242,7 @@
   </head>
 
   <body>
+    
     <main class="wrapper" role="main">
       <header class="form-head" aria-hidden="false">
         <div class="flex-row" style="gap: 14px; align-items: flex-start">
@@ -261,9 +262,9 @@
             />
           </svg>
           <div>
-            <h1>Int0 Sheet Form</h1>
+            <h1>Registration VSS</h1>
             <p>
-              Fill the details below — this is a reusable info-sheet template.
+              Fill the details below — this is a Registration form template.
               Accessible & responsive.
             </p>
           </div>
@@ -453,7 +454,7 @@
       </footer>
     </main>
 
-    <script>
+    <!-- <script>
       (function () {
         const form = document.getElementById("int0-sheet-form");
         const out = document.getElementById("json-output");
@@ -502,9 +503,9 @@
           success.style.display = "block";
 
           // temporary flash + simulate saved state
-          setTimeout(() => (success.style.display = "none"), 5000);
+          setTimeout(() => (success.style.display = "none"), 5000); -->
 
-          // TODO: Replace this with an actual POST/fetch to your server
+    <!-- // TODO: Replace this with an actual POST/fetch to your server
           // Example:
           // fetch('/api/int0', {method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(data)})
           //   .then(...).catch(...)
@@ -516,6 +517,6 @@
         // populate preview initially
         out.textContent = JSON.stringify(collectFormData(form), null, 2);
       })();
-    </script>
+    </script> -->
   </body>
 </html>
